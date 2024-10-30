@@ -40,7 +40,7 @@ void insertionSort(std::vector<int>& arr) {
     }
 }
 
-void heapify(std::vector<int>& arr, int n, int i) {
+void heapIfY(std::vector<int>& arr, int n, int i) {
     int largest = i;
     int left = 2 * i + 1;
     int right = 2 * i + 2;
@@ -55,7 +55,7 @@ void heapify(std::vector<int>& arr, int n, int i) {
 
     if (largest != i) {
         std::swap(arr[i], arr[largest]);
-        heapify(arr, n, largest);
+        heapIfY(arr, n, largest);
     }
 }
 
@@ -63,18 +63,35 @@ void heapSort(std::vector<int>& arr) {
     int n = arr.size();
 
     for (int i = n / 2 - 1; i >= 0; i--) {
-        heapify(arr, n, i);
+        heapIfY(arr, n, i);
     }
 
     for (int i = n - 1; i > 0; i--) {
         std::swap(arr[0], arr[i]);
-        heapify(arr, i, 0);
+        heapIfY(arr, i, 0);
     }
 }
 
 void printArray(const std::vector<int>& arr) {
-    for (const int& value : arr)
-        std::cout << value << " ";
+    int arr_size = arr.size();
+    if (arr_size > 23) {
+        std::cout << "\nПервые 10 элементов: ";
+        for (int i = 0; i < 10; i++) {
+            std::cout << arr[i] << " ";
+        }
+        std::cout << "\n";
+        std::cout << "Последние 10 элементов: ";
+        for (int i = arr_size - 10; i < arr_size; i++) {
+            std::cout << arr[i] << " ";
+        }
+        std::cout << "\n";
+    }
+    else {
+        for (int i = 0; i < arr_size; i++) {
+            std::cout << arr[i] << " ";
+        }
+        std::cout << "\n";
+    }
     std::cout << "\n";
 }
 
@@ -128,8 +145,7 @@ void howCreateArray(std::vector<int>& vec, int arr_size) {
 int main() {
     setlocale(LC_ALL, "ru");
     bool is_need_next_run = false; //создание флага для повторного запуска программы
-    while (is_need_next_run == false) {
-        srand(static_cast<unsigned int>(time(0)));
+    while (is_need_next_run == false) {     
 
         int arr_size;
 
